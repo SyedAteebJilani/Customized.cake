@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customized Cake by Shahreen Saad | Premium Artisan Cakes</title>
+    <meta name="description" content="Sweeten Up Your Celebrations With Our Custom Cakes. Handcrafted premium cakes by Shahreen Saad in Pakistan.">
+    
+    <!-- Preconnect to Font APIs -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Premium Typography: Cormorant Garamond (Display) & DM Sans (UI/Body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <!-- Lenis for Smooth Scrolling -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"DM Sans"', 'sans-serif'],
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            bg: '#FAF9F6',       // Warm off-white
+                            dark: '#2D2825',     // Deep warm grey for text
+                            light: '#F4EBE8',    // Soft blush/nude
+                            accent: '#8A2E3B',   // Cherry/Burgundy from logo
+                            accentHover: '#6B232D',
+                            border: '#E8E4DF'
+                        }
+                    },
+                    spacing: {
+                        '18': '4.5rem',
+                        '22': '5.5rem',
+                        '30': '7.5rem',
+                    },
+                    transitionTimingFunction: {
+                        'expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Resets & Global Styles */
+        :root {
+            --cursor-size: 10px;
+        }
+
+        body {
+            background-color: #F8F5F2; /* Changed from #FAF9F6 to a slightly warmer off-white for better contrast */
+            color: #2D2825;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            cursor: none; /* Hide default cursor for custom one */
+        }
+
+        ::selection {
+            background-color: #8A2E3B;
+            color: #FAF9F6;
+        }
+
+        /* Lenis Smooth Scroll Recommended Styles */
+        html.lenis {
+            height: auto;
+        }
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--cursor-size);
+            height: var(--cursor-size);
+            background-color: #8A2E3B;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                        height 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                        background-color 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .custom-cursor.active {
+            width: 60px;
+            height: 60px;
+            background-color: #FAF9F6;
+            mix-blend-mode: difference;
+        }
+
+        .custom-cursor.drag {
+            width: 80px;
+            height: 80px;
+            background-color: transparent;
+            border: 1px solid #FAF9F6;
+        }
+        
+        .custom-cursor.drag::after {
+            content: 'DRAG';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10px;
+            font-family: 'DM Sans', sans-serif;
+            color: #FAF9F6;
+            letter-spacing: 1px;
+        }
+
+        /* Utilities */
+        .text-balance {
+            text-wrap: balance;
+        }
+
+        .clip-text {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        .reveal-text span {
+            display: inline-block;
+            transform: translateY(110%);
+        }
+
+        .img-wrap {
+            overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        .img-wrap img {
+            transform: scale(1.2);
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .group:hover .img-wrap img {
+            transform: scale(1.05);
+        }
+
+        /* Button Hover Effect */
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #6B232D;
+            transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+            border-radius: inherit;
+        }
+        .btn-primary:hover::before {
+            top: 0;
+        }
+
+        /* Navigation Blur state */
+        .nav-scrolled {
+            background: rgba(250, 249, 246, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(232, 228, 223, 0.5);
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+        }
+
+        /* Hide elements before GSAP initializes */
+        .gsap-hidden {
+            visibility: hidden;
+        }
+
+        /* Mobile specific adjustments */
+        @media (max-width: 768px) {
+            body { cursor: auto; }
+            .custom-cursor { display: none; }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-accent selection:text-white">
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor hidden md:block"></div>
+
+    <!-- Navigation -->
+    <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-expo py-6">
+        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+            
+            <!-- Logo -->
+            <a href="#" class="relative z-10 flex items-center gap-3 interactive" aria-label="Home">
+                <div class="w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden bg-white shadow-sm flex items-center justify-center">
+                    <img src="./images/logo.jpg" alt="Customized Cake by Shahreen Saad" class="w-full h-full object-contain p-1">
+                </div>
+                <div class="hidden lg:block">
+                    <h1 class="font-serif font-semibold text-lg leading-tight text-brand-dark">Customized Cake</h1>
+                    <p class="font-sans text-[10px] tracking-[0.2em] text-brand-accent uppercase mt-0.5">By Shahreen Saad</p>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+                <a href="#" class="text-sm font-medium hover:text-brand-accent transition-colors interactive">Home</a>
+                
+                <!-- Dropdown -->
+                <div class="relative group cursor-pointer h-full py-4 interactive">
+                    <span class="text-sm font-medium group-hover:text-brand-accent transition-colors flex items-center gap-1">
+                        Categories <i class="ph ph-caret-down text-xs transition-transform group-hover:rotate-180"></i>
+                    </span>
+                    <div class="absolute top-full left-1/2 -translate-x-1/2 w-48 bg-white shadow-xl rounded-2xl border border-brand-border py-3 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 ease-expo">
+                        <a href="#" class="block px-5 py-2 text-sm text-brand-dark hover:bg-brand-light hover:text-brand-accent transition-colors">Birthday Cakes</a>
+                        <a href="#" class="block px-5 py-2 text-sm text-brand-dark hover:bg-brand-light hover:text-brand-accent transition-colors">Wedding Cakes</a>
+                        <a href="#" class="block px-5 py-2 text-sm text-brand-dark hover:bg-brand-light hover:text-brand-accent transition-colors">Anniversary Cakes</a>
+                        <a href="#" class="block px-5 py-2 text-sm text-brand-dark hover:bg-brand-light hover:text-brand-accent transition-colors">Bento & Cupcakes</a>
+                    </div>
+                </div>
+
+                <a href="#featured" class="text-sm font-medium hover:text-brand-accent transition-colors interactive">Featured</a>
+                <a href="#about" class="text-sm font-medium hover:text-brand-accent transition-colors interactive">About</a>
+                <a href="#testimonials" class="text-sm font-medium hover:text-brand-accent transition-colors interactive">Testimonials</a>
+            </nav>
+
+            <!-- CTA & Mobile Toggle -->
+            <div class="flex items-center gap-4 z-10">
+                <a href="#contact" class="hidden md:inline-flex items-center justify-center px-6 py-3 rounded-full bg-brand-dark text-white text-sm font-medium transition-all hover:scale-105 interactive btn-primary z-10">
+                    Order Now
+                </a>
+                <button class="lg:hidden text-brand-dark p-2 interactive relative z-50" id="mobile-menu-btn" aria-label="Toggle Menu">
+                    <i id="mobile-menu-icon-open" class="ph ph-list text-3xl transition-all duration-300"></i>
+                    <i id="mobile-menu-icon-close" class="ph ph-x text-3xl transition-all duration-300 hidden"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-brand-bg z-[-1] flex flex-col justify-center items-center opacity-0 pointer-events-none transition-opacity duration-500">
+            <nav class="flex flex-col items-center gap-8 text-2xl font-serif">
+                <a href="#" class="mobile-link">Home</a>
+                <a href="#" class="mobile-link">Categories</a>
+                <a href="#featured" class="mobile-link">Featured</a>
+                <a href="#about" class="mobile-link">About</a>
+                <a href="#contact" class="text-brand-accent mobile-link">Order Now</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden">
+            <!-- Decorative Background Elements -->
+            <div class="absolute top-[10%] left-[5%] w-64 h-64 bg-brand-light rounded-full blur-3xl opacity-60 pointer-events-none"></div>
+            <div class="absolute bottom-[10%] right-[5%] w-96 h-96 bg-[#fcd5ce] rounded-full blur-3xl opacity-40 pointer-events-none"></div>
+
+            <div class="container mx-auto px-6 md:px-12 grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                
+                <!-- Content Left -->
+                <div class="lg:col-span-6 z-10 hero-content">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand-border bg-white/50 backdrop-blur-sm mb-6 gsap-hidden hero-badge">
+                        <i class="ph-fill ph-sparkle text-brand-accent"></i>
+                        <span class="text-xs font-semibold tracking-wider uppercase text-brand-dark">Handcrafted in Pakistan</span>
+                    </div>
+                    
+                    <h1 class="font-serif text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.05] tracking-tight text-brand-dark mb-6 clip-text">
+                        <div class="reveal-text"><span>Sweeten Up</span></div>
+                        <div class="reveal-text"><span>Your <i class="font-light text-brand-accent">Celebrations</i></span></div>
+                    </h1>
+                    
+                    <p class="text-lg md:text-xl text-brand-dark/70 font-sans max-w-md text-balance mb-10 hero-desc gsap-hidden">
+                        Bespoke, luxury cakes designed to make your special moments unforgettable. Baked with love by Shahreen Saad.
+                    </p>
+                    
+                    <div class="flex flex-wrap items-center gap-4 hero-btns gsap-hidden">
+                        <a href="#featured" class="inline-flex items-center justify-center px-8 py-4 rounded-full bg-brand-accent text-white font-medium transition-all hover:shadow-lg hover:shadow-brand-accent/30 interactive group btn-primary z-10">
+                            Explore Cakes
+                            <i class="ph ph-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="#contact" class="inline-flex items-center justify-center px-8 py-4 rounded-full border border-brand-border bg-white text-brand-dark font-medium transition-all hover:border-brand-dark interactive z-10">
+                            Custom Order
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Image Right -->
+                <div class="lg:col-span-6 relative h-[60vh] lg:h-[85vh] w-full rounded-t-[200px] rounded-b-[40px] overflow-hidden hero-image-container z-10 shadow-2xl">
+                    <img src="./images/hero.webp" 
+                         alt="Elegant tiered custom cake with floral decorations" 
+                         class="absolute inset-0 w-full h-full object-cover hero-img"
+                         data-speed="0.9">
+                    
+                    <!-- Floating Badge -->
+                    <div class="absolute bottom-10 left-[-20px] md:left-[-40px] bg-white p-4 rounded-2xl shadow-xl flex items-center gap-4 animate-float hero-floating-badge z-20">
+                        <div class="w-12 h-12 bg-brand-light rounded-full flex items-center justify-center text-brand-accent">
+                            <i class="ph-fill ph-star text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-serif font-bold text-lg leading-none text-brand-dark">100%</p>
+                            <p class="text-xs text-brand-dark/60 font-medium">Customizable</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marquee -->
+        <section class="py-12 border-y border-brand-border bg-white overflow-hidden flex whitespace-nowrap">
+            <div class="marquee-content flex gap-8 items-center px-4 font-serif text-3xl md:text-5xl italic text-brand-dark font-medium">
+                <span>Premium Ingredients</span>
+                <i class="ph-fill ph-flower-lotus text-brand-accent text-2xl not-italic"></i>
+                <span>Handcrafted with Love</span>
+                <i class="ph-fill ph-flower-lotus text-brand-accent text-2xl not-italic"></i>
+                <span>Bespoke Designs</span>
+                <i class="ph-fill ph-flower-lotus text-brand-accent text-2xl not-italic"></i>
+                <span>Unforgettable Taste</span>
+                <i class="ph-fill ph-flower-lotus text-brand-accent text-2xl not-italic"></i>
+                <!-- Duplicate for seamless loop -->
+                <span>Premium Ingredients</span>
+                <i class="ph-fill ph-flower-lotus text-brand-accent text-2xl not-italic"></i>
+                <span>Handcrafted with Love</span>
+                <i class="ph-fill ph-flower-lotus text-brand-accent text-2xl not-italic"></i>
+                <span>Bespoke Designs</span>
+                <i class="ph-fill ph-flower-lotus text-brand-accent text-2xl not-italic"></i>
+                <span>Unforgettable Taste</span>
+                <i class="ph-fill ph-flower-lotus text-brand-accent text-2xl not-italic"></i>
+            </div>
+        </section>
+
+        <!-- Featured Cakes -->
+        <section id="featured" class="py-24 md:py-32 bg-brand-bg relative">
+            <div class="container mx-auto px-6 md:px-12">
+                
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                    <div class="max-w-2xl">
+                        <p class="text-brand-accent font-semibold tracking-widest uppercase text-xs mb-3 section-subtitle">Curated Selection</p>
+                        <h2 class="font-serif text-4xl md:text-6xl text-brand-dark section-title">Signature <i class="font-light">Creations</i></h2>
+                    </div>
+                    <a href="#" class="group inline-flex items-center gap-2 text-sm font-medium border-b border-brand-dark pb-1 interactive">
+                        View Full Menu <i class="ph ph-arrow-right transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 lg:gap-8">
+                    
+                    <!-- Card 1 -->
+                    <a href="#" class="group block cake-card interactive">
+                        <div class="relative w-full aspect-[4/5] rounded-2xl md:rounded-3xl img-wrap mb-4 md:mb-6 bg-brand-light">
+                            <img src="./images/img3.jpg" alt="Vintage Floral Cake" class="w-full h-full object-cover">
+                            <div class="absolute top-2 right-2 md:top-4 md:right-4 bg-white/90 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1 rounded-full text-[10px] md:text-xs font-semibold">Wedding</div>
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-lg md:text-2xl text-brand-dark mb-1 group-hover:text-brand-accent transition-colors leading-tight">Vintage Floral</h3>
+                            <p class="text-brand-dark/60 text-[11px] md:text-sm">Vanilla bean, raspberry coulis</p>
+                        </div>
+                    </a>
+
+                    <!-- Card 2 -->
+                    <a href="#" class="group block cake-card interactive lg:mt-8">
+                        <div class="relative w-full aspect-[4/5] rounded-2xl md:rounded-3xl img-wrap mb-4 md:mb-6 bg-brand-light">
+                            <img src="./images/img2.jpg" alt="Minimalist Pearl Cake" class="w-full h-full object-cover">
+                            <div class="absolute top-2 right-2 md:top-4 md:right-4 bg-white/90 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1 rounded-full text-[10px] md:text-xs font-semibold">Anniversary</div>
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-lg md:text-2xl text-brand-dark mb-1 group-hover:text-brand-accent transition-colors leading-tight">Minimalist Pearl</h3>
+                            <p class="text-brand-dark/60 text-[11px] md:text-sm">Earl grey, honey buttercream</p>
+                        </div>
+                    </a>
+
+                    <!-- Card 3 -->
+                    <a href="#" class="group block cake-card interactive lg:mt-16">
+                        <div class="relative w-full aspect-[4/5] rounded-2xl md:rounded-3xl img-wrap mb-4 md:mb-6 bg-brand-light">
+                            <img src="./images/img1.jpg" alt="Decadent Chocolate Drip" class="w-full h-full object-cover">
+                            <div class="absolute top-2 right-2 md:top-4 md:right-4 bg-white/90 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1 rounded-full text-[10px] md:text-xs font-semibold">Birthday</div>
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-lg md:text-2xl text-brand-dark mb-1 group-hover:text-brand-accent transition-colors leading-tight">Choco-Drip</h3>
+                            <p class="text-brand-dark/60 text-[11px] md:text-sm">Belgian chocolate, caramel</p>
+                        </div>
+                    </a>
+
+                    <!-- Card 4 -->
+                    <a href="#" class="group block cake-card interactive lg:mt-24">
+                        <div class="relative w-full aspect-[4/5] rounded-2xl md:rounded-3xl img-wrap mb-4 md:mb-6 bg-brand-light">
+                            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1000&auto=format&fit=crop" alt="Berry Blossom Bento" class="w-full h-full object-cover">
+                            <div class="absolute top-2 right-2 md:top-4 md:right-4 bg-white/90 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1 rounded-full text-[10px] md:text-xs font-semibold">Bento</div>
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-lg md:text-2xl text-brand-dark mb-1 group-hover:text-brand-accent transition-colors leading-tight">Berry Blossom</h3>
+                            <p class="text-brand-dark/60 text-[11px] md:text-sm">Lemon sponge, mixed berries</p>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Story Section -->
+        <section id="about" class="py-24 md:py-32 bg-[#FDFCFB] relative overflow-hidden">
+            <div class="container mx-auto px-6 md:px-12">
+                <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+                    
+                    <!-- Reel Video Container -->
+                    <div class="relative w-full max-w-[320px] mx-auto lg:max-w-none aspect-[9/16] md:aspect-[4/5] rounded-[2.5rem] overflow-hidden story-img-container shadow-xl bg-brand-light transform -rotate-2 hover:rotate-0 transition-transform duration-500 ease-out group">
+                        <!-- Note: Replace the src below with the actual URL of your video file (.mp4) -->
+                        <video 
+                            src="./images/reel.mp4" 
+                            class="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700"
+                            autoplay loop muted playsinline
+                            poster="./images/logo.jpg">
+                        </video>
+                        
+                        <!-- Cute Glassmorphism Overlay Elements -->
+                        <div class="absolute inset-0 border-2 border-white/40 rounded-[2.5rem] m-3 pointer-events-none"></div>
+                        
+                        <div class="absolute top-6 right-6 bg-white/80 backdrop-blur-md w-10 h-10 rounded-full flex items-center justify-center shadow-sm pointer-events-none text-brand-accent">
+                            <i class="ph-fill ph-video-camera text-xl"></i>
+                        </div>
+
+                        <div class="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md px-4 py-2.5 rounded-2xl flex items-center gap-2 shadow-lg pointer-events-none">
+                            <i class="ph-fill ph-heart text-brand-accent animate-pulse"></i>
+                            <span class="text-xs font-bold tracking-wide text-brand-dark uppercase mt-0.5">Behind the Magic</span>
+                        </div>
+                    </div>
+
+                    <div class="story-content">
+                        <p class="text-brand-accent font-semibold tracking-widest uppercase text-xs mb-4">The Baker Behind the Magic</p>
+                        <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-brand-dark leading-tight mb-8">
+                            Baking memories, <br><i class="font-light text-brand-accent">one tier at a time.</i>
+                        </h2>
+                        
+                        <div class="space-y-6 text-brand-dark/70 font-sans text-lg">
+                            <p>
+                                What started as a passion in a home kitchen has blossomed into a boutique cake studio dedicated to edible artistry. Shahreen Saad believes that a cake is more than just dessert—it's the centerpiece of your celebration.
+                            </p>
+                            <p>
+                                Every creation is meticulously handcrafted, blending premium, locally-sourced ingredients with contemporary design techniques to ensure your cake tastes as breathtaking as it looks.
+                            </p>
+                        </div>
+
+                        <div class="mt-12 flex items-center gap-6">
+                            <img src="logo.jpg" alt="Logo" class="w-16 h-16 object-contain grayscale opacity-50 mix-blend-multiply">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Signature_of_John_Hancock.svg/1200px-Signature_of_John_Hancock.svg.png" alt="Signature" class="h-12 opacity-30 filter invert" style="filter: brightness(0); opacity: 0.3;"> <!-- Placeholder signature -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="py-24 bg-brand-dark text-brand-bg rounded-t-[3rem] md:rounded-t-[5rem] relative mt-[-2rem] z-20">
+            <div class="container mx-auto px-6 md:px-12">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="font-serif text-4xl md:text-5xl mb-4 feature-title">The <i class="font-light text-[#E8A598]">Difference</i></h2>
+                    <p class="text-brand-bg/70 text-lg">We don't compromise on quality, aesthetics, or taste.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                    <!-- Feature 1 -->
+                    <div class="text-center feature-item">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-white/10 flex items-center justify-center mb-6">
+                            <i class="ph-light ph-star text-3xl text-[#E8A598]"></i>
+                        </div>
+                        <h3 class="font-serif text-xl mb-3">Premium Ingredients</h3>
+                        <p class="text-sm text-brand-bg/60">Only the finest chocolate, real butter, and fresh fruits.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="text-center feature-item">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-white/10 flex items-center justify-center mb-6">
+                            <i class="ph-light ph-hand-heart text-3xl text-[#E8A598]"></i>
+                        </div>
+                        <h3 class="font-serif text-xl mb-3">100% Handcrafted</h3>
+                        <p class="text-sm text-brand-bg/60">Every petal, drip, and detail is done by hand with precision.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="text-center feature-item">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-white/10 flex items-center justify-center mb-6">
+                            <i class="ph-light ph-palette text-3xl text-[#E8A598]"></i>
+                        </div>
+                        <h3 class="font-serif text-xl mb-3">Bespoke Design</h3>
+                        <p class="text-sm text-brand-bg/60">Your vision turned into a unique, edible masterpiece.</p>
+                    </div>
+                    <!-- Feature 4 -->
+                    <div class="text-center feature-item">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-white/10 flex items-center justify-center mb-6">
+                            <i class="ph-light ph-clock text-3xl text-[#E8A598]"></i>
+                        </div>
+                        <h3 class="font-serif text-xl mb-3">Freshly Baked</h3>
+                        <p class="text-sm text-brand-bg/60">Baked specifically for your event date. Never frozen.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section id="testimonials" class="py-24 md:py-32 bg-brand-light relative">
+            <!-- Decorative Quotes -->
+            <i class="ph-fill ph-quotes absolute top-20 left-10 text-[10rem] text-brand-accent/5 pointer-events-none"></i>
+            
+            <div class="container mx-auto px-6 md:px-12 relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="font-serif text-4xl md:text-5xl text-brand-dark mb-4">Sweet <i class="font-light">Words</i></h2>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Review 1 -->
+                    <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow testimonial-card">
+                        <div class="flex gap-1 text-brand-accent mb-6">
+                            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                        </div>
+                        <p class="text-brand-dark/80 text-lg mb-6 leading-relaxed">"The cake was absolutely breathtaking! It looked exactly like the reference picture but tasted even better. Highly recommend Shahreen for any event!"</p>
+                        <div class="flex items-center gap-4 border-t border-brand-border pt-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-bg flex items-center justify-center font-serif text-xl text-brand-accent">A</div>
+                            <div>
+                                <h4 class="font-serif font-semibold text-brand-dark">Ayesha K.</h4>
+                                <p class="text-xs text-brand-dark/50 uppercase tracking-wider">Wedding Cake</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 2 -->
+                    <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow testimonial-card md:-translate-y-6">
+                        <div class="flex gap-1 text-brand-accent mb-6">
+                            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                        </div>
+                        <p class="text-brand-dark/80 text-lg mb-6 leading-relaxed">"Not only was it beautiful, but it was incredibly moist. The chocolate frosting was rich without being overly sweet. Perfection."</p>
+                        <div class="flex items-center gap-4 border-t border-brand-border pt-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-bg flex items-center justify-center font-serif text-xl text-brand-accent">Z</div>
+                            <div>
+                                <h4 class="font-serif font-semibold text-brand-dark">Zainab R.</h4>
+                                <p class="text-xs text-brand-dark/50 uppercase tracking-wider">Birthday Cake</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review 3 -->
+                    <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow testimonial-card">
+                        <div class="flex gap-1 text-brand-accent mb-6">
+                            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                        </div>
+                        <p class="text-brand-dark/80 text-lg mb-6 leading-relaxed">"Shahreen was so professional and accommodating to our design requests. The final result exceeded our expectations. A true artist."</p>
+                        <div class="flex items-center gap-4 border-t border-brand-border pt-4">
+                            <div class="w-10 h-10 rounded-full bg-brand-bg flex items-center justify-center font-serif text-xl text-brand-accent">M</div>
+                            <div>
+                                <h4 class="font-serif font-semibold text-brand-dark">Maha S.</h4>
+                                <p class="text-xs text-brand-dark/50 uppercase tracking-wider">Anniversary Cake</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instagram Section -->
+        <section class="pt-20 pb-8 bg-brand-bg overflow-hidden">
+            <div class="text-center mb-10">
+                <a href="https://www.instagram.com/customized.cake/" target="_blank" class="inline-flex items-center gap-2 font-serif text-2xl hover:text-brand-accent transition-colors interactive">
+                    @customized.cake <i class="ph ph-arrow-up-right"></i>
+                </a>
+            </div>
+            
+            <!-- Continuous Slider -->
+            <div class="flex gap-4 px-4 overflow-x-auto pb-8 hide-scrollbars snap-x" style="scrollbar-width: none; -ms-overflow-style: none;">
+                <style>
+                    .hide-scrollbars::-webkit-scrollbar { display: none; }
+                </style>
+                <!-- Insta Item 1 -->
+                <a href="#" class="relative min-w-[250px] md:min-w-[300px] aspect-square rounded-2xl overflow-hidden group snap-center interactive insta-item">
+                    <img src="./images/ig1.webp" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Instagram Post">
+                    <div class="absolute inset-0 bg-brand-accent/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="ph-fill ph-instagram-logo text-white text-4xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300"></i>
+                    </div>
+                </a>
+                <!-- Insta Item 2 -->
+                <a href="#" class="relative min-w-[250px] md:min-w-[300px] aspect-square rounded-2xl overflow-hidden group snap-center interactive insta-item">
+                    <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Instagram Post">
+                    <div class="absolute inset-0 bg-brand-accent/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="ph-fill ph-instagram-logo text-white text-4xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300"></i>
+                    </div>
+                </a>
+                 <!-- Insta Item 3 -->
+                 <a href="#" class="relative min-w-[250px] md:min-w-[300px] aspect-square rounded-2xl overflow-hidden group snap-center interactive insta-item">
+                    <img src="./images/img2.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Instagram Post">
+                    <div class="absolute inset-0 bg-brand-accent/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="ph-fill ph-instagram-logo text-white text-4xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300"></i>
+                    </div>
+                </a>
+                <!-- Insta Item 4 -->
+                <a href="#" class="relative min-w-[250px] md:min-w-[300px] aspect-square rounded-2xl overflow-hidden group snap-center interactive insta-item">
+                    <img src="https://images.unsplash.com/photo-1519340333755-56e9c1d04579?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Instagram Post">
+                    <div class="absolute inset-0 bg-brand-accent/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="ph-fill ph-instagram-logo text-white text-4xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300"></i>
+                    </div>
+                </a>
+                <!-- Insta Item 5 -->
+                <a href="#" class="relative min-w-[250px] md:min-w-[300px] aspect-square rounded-2xl overflow-hidden group snap-center interactive insta-item hidden md:block">
+                    <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Instagram Post">
+                    <div class="absolute inset-0 bg-brand-accent/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="ph-fill ph-instagram-logo text-white text-4xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300"></i>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section id="contact" class="pt-16 pb-32 bg-white relative overflow-hidden">
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1495147466023-e62c9c716186?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-5"></div>
+            
+            <div class="container mx-auto px-6 md:px-12 relative z-10 text-center">
+                <div class="w-20 h-20 mx-auto rounded-full bg-brand-light flex items-center justify-center mb-8 cta-element">
+                    <img src="./images/logo.jpg" alt="Logo" class="w-12 h-12 object-contain mix-blend-multiply">
+                </div>
+                
+                <h2 class="font-serif text-5xl md:text-7xl text-brand-dark mb-6 cta-element clip-text">
+                    <div class="reveal-text"><span>Ready to</span></div>
+                    <div class="reveal-text"><span class="italic text-brand-accent">Celebrate?</span></div>
+                </h2>
+                
+                <p class="text-xl text-brand-dark/70 mb-12 max-w-xl mx-auto cta-element">
+                    Let's create something beautiful and delicious together. Order your custom cake today.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 cta-element">
+                    <a href="https://wa.me/yourwhatsappnumber" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center px-10 py-5 rounded-full bg-brand-dark text-white font-medium text-lg transition-all hover:scale-105 interactive btn-primary z-10 magnetic-btn">
+                        <i class="ph ph-whatsapp logo mr-2 text-xl"></i> Message Us
+                    </a>
+                    <a href="mailto:order@example.com" class="w-full sm:w-auto inline-flex items-center justify-center px-10 py-5 rounded-full border border-brand-border bg-white text-brand-dark font-medium text-lg transition-all hover:border-brand-dark interactive z-10">
+                        Email Inquiry
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white pt-20 pb-10">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 border-b border-white/10 pb-16">
+                
+                <div class="md:col-span-2">
+                    <a href="#" class="inline-block bg-white rounded-full p-2 mb-6">
+                        <img src="./images/logo.jpg" alt="Logo" class="w-16 h-16 object-contain">
+                    </a>
+                    <p class="text-white/60 max-w-sm">Premium handcrafted custom cakes serving Pakistan. Elevating celebrations with edible art.</p>
+                </div>
+
+                <div>
+                    <h4 class="font-serif text-xl mb-6 text-[#E8A598]">Quick Links</h4>
+                    <ul class="space-y-4 text-white/60">
+                        <li><a href="#" class="hover:text-white transition-colors interactive">Home</a></li>
+                        <li><a href="#featured" class="hover:text-white transition-colors interactive">Menu</a></li>
+                        <li><a href="#about" class="hover:text-white transition-colors interactive">Our Story</a></li>
+                        <li><a href="#contact" class="hover:text-white transition-colors interactive">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-serif text-xl mb-6 text-[#E8A598]">Contact</h4>
+                    <ul class="space-y-4 text-white/60">
+                        <li class="flex items-center gap-2"><i class="ph ph-map-pin"></i> Pakistan</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-envelope-simple"></i> hello@customcake.com</li>
+                    </ul>
+                    <div class="flex gap-4 mt-6">
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-accent hover:border-brand-accent transition-colors interactive">
+                            <i class="ph-fill ph-instagram-logo"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-accent hover:border-brand-accent transition-colors interactive">
+                            <i class="ph-fill ph-facebook-logo"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm text-white/40">
+                <p>&copy; 2026 Customized Cake by Shahreen Saad. All rights reserved.</p>
+                <p class="mt-2 md:mt-0">Designed with precision.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. Lenis Smooth Scrolling Setup ---
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // expo easing
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+                mouseMultiplier: 1,
+                smoothTouch: false,
+                touchMultiplier: 2,
+                infinite: false,
+            })
+
+            function raf(time) {
+                lenis.raf(time)
+                requestAnimationFrame(raf)
+            }
+            requestAnimationFrame(raf)
+
+            // Connect GSAP ScrollTrigger to Lenis
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Update ScrollTrigger on Lenis scroll
+            lenis.on('scroll', ScrollTrigger.update)
+            
+            gsap.ticker.add((time)=>{
+                lenis.raf(time * 1000)
+            })
+            gsap.ticker.lagSmoothing(0)
+
+            // --- 2. Custom Cursor Logic ---
+            const cursor = document.querySelector('.custom-cursor');
+            const interactables = document.querySelectorAll('.interactive');
+            const dragItems = document.querySelectorAll('.insta-item, .marquee-content');
+
+            if(window.innerWidth > 768) {
+                // Move cursor
+                window.addEventListener('mousemove', (e) => {
+                    gsap.to(cursor, {
+                        x: e.clientX,
+                        y: e.clientY,
+                        duration: 0.1,
+                        ease: 'power2.out'
+                    });
+                });
+
+                // Hover states
+                interactables.forEach(el => {
+                    el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+                    el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+                });
+
+                // Drag states (for sliders/marquee if needed)
+                dragItems.forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        cursor.classList.remove('active');
+                        cursor.classList.add('drag');
+                    });
+                    el.addEventListener('mouseleave', () => cursor.classList.remove('drag'));
+                });
+            }
+
+            // --- 3. Magnetic Button Logic ---
+            const magneticBtns = document.querySelectorAll('.magnetic-btn');
+            
+            magneticBtns.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    gsap.to(btn, {
+                        x: x * 0.3,
+                        y: y * 0.3,
+                        duration: 0.5,
+                        ease: 'power2.out'
+                    });
+                });
+
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, {
+                        x: 0,
+                        y: 0,
+                        duration: 0.5,
+                        ease: 'elastic.out(1, 0.3)'
+                    });
+                });
+            });
+
+            // --- 4. Navigation Blur on Scroll ---
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('nav-scrolled');
+                } else {
+                    navbar.classList.remove('nav-scrolled');
+                }
+            });
+
+            // --- 5. Mobile Menu Toggle ---
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileIconOpen = document.getElementById('mobile-menu-icon-open');
+            const mobileIconClose = document.getElementById('mobile-menu-icon-close');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            let menuOpen = false;
+
+            mobileBtn.addEventListener('click', () => {
+                menuOpen = !menuOpen;
+                if(menuOpen) {
+                    mobileIconOpen.classList.add('hidden');
+                    mobileIconClose.classList.remove('hidden');
+                    
+                    mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+                    mobileMenu.classList.add('opacity-100', 'pointer-events-auto', 'z-40');
+                    document.body.style.overflow = 'hidden'; // prevent bg scroll
+                    
+                    // Animate links in
+                    gsap.fromTo(mobileLinks, 
+                        { y: 20, opacity: 0 },
+                        { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power2.out', delay: 0.2 }
+                    );
+                } else {
+                    mobileIconClose.classList.add('hidden');
+                    mobileIconOpen.classList.remove('hidden');
+                    
+                    mobileMenu.classList.remove('opacity-100', 'pointer-events-auto', 'z-40');
+                    mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileBtn.click(); // close menu
+                });
+            });
+
+            // --- 6. GSAP Animations ---
+            
+            // Initial Hero Load Sequence
+            const heroTl = gsap.timeline();
+            
+            // Remove hidden classes right before animation starts to prevent FOUC
+            document.querySelectorAll('.gsap-hidden').forEach(el => el.classList.remove('gsap-hidden'));
+
+            heroTl.from('.hero-badge', { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out' })
+                  .from('.hero-content .reveal-text span', { 
+                      y: '110%', 
+                      duration: 1.2, 
+                      ease: 'expo.out', 
+                      stagger: 0.15 
+                  }, '-=0.6')
+                  .from('.hero-desc', { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.8')
+                  .from('.hero-btns a', { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.1 }, '-=0.6')
+                  .from('.hero-image-container', { 
+                      scale: 0.9, 
+                      opacity: 0, 
+                      duration: 1.5, 
+                      ease: 'expo.out' 
+                  }, '-=1.2')
+                  .from('.hero-floating-badge', { 
+                      y: 30, 
+                      opacity: 0, 
+                      duration: 1, 
+                      ease: 'back.out(1.7)' 
+                  }, '-=0.5');
+
+            // Marquee Animation
+            gsap.to('.marquee-content', {
+                xPercent: -50,
+                ease: "none",
+                duration: 20,
+                repeat: -1
+            });
+
+            // ScrollTriggers for Sections
+
+            // Featured Cakes
+            gsap.utils.toArray('.section-title').forEach(title => {
+                gsap.from(title, {
+                    scrollTrigger: {
+                        trigger: title,
+                        start: 'top 85%',
+                    },
+                    y: 40,
+                    opacity: 0,
+                    duration: 1,
+                    ease: 'power3.out'
+                });
+            });
+
+            gsap.from('.cake-card', {
+                scrollTrigger: {
+                    trigger: '#featured',
+                    start: 'top 70%',
+                },
+                y: 60,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: 'power3.out'
+            });
+
+            // Story Section
+            gsap.from('.story-img-container', {
+                scrollTrigger: {
+                    trigger: '#about',
+                    start: 'top 60%',
+                },
+                x: -50,
+                opacity: 0,
+                duration: 1.5,
+                ease: 'expo.out'
+            });
+
+            gsap.from('.story-content > *', {
+                scrollTrigger: {
+                    trigger: '#about',
+                    start: 'top 60%',
+                },
+                y: 30,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.15,
+                ease: 'power3.out'
+            });
+
+            // Features Section
+            gsap.from('.feature-title', {
+                scrollTrigger: {
+                    trigger: '.feature-item',
+                    start: 'top 85%',
+                },
+                y: 30,
+                opacity: 0,
+                duration: 1,
+                ease: 'power3.out'
+            });
+
+            gsap.from('.feature-item', {
+                scrollTrigger: {
+                    trigger: '.feature-item',
+                    start: 'top 80%',
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: 'power2.out'
+            });
+
+            // Testimonials
+            gsap.from('.testimonial-card', {
+                scrollTrigger: {
+                    trigger: '#testimonials',
+                    start: 'top 70%',
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: 'power3.out'
+            });
+
+            // Instagram items reveal
+            gsap.from('.insta-item', {
+                scrollTrigger: {
+                    trigger: '.insta-item',
+                    start: 'top 85%',
+                },
+                scale: 0.9,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: 'back.out(1.2)'
+            });
+
+            // CTA Reveal
+            const ctaTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#contact',
+                    start: 'top 60%'
+                }
+            });
+            
+            ctaTl.from('.cta-element.clip-text .reveal-text span', {
+                y: '110%',
+                duration: 1,
+                ease: 'expo.out',
+                stagger: 0.1
+            })
+            .from('.cta-element:not(.clip-text)', {
+                y: 20,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: 'power2.out'
+            }, '-=0.6');
+
+            // Removed parallax images effect to keep images firmly rooted on all devices.
+
+        });
+    </script>
+</body>
+</html>
