@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Order | Customized Cake by BakeTales</title>
+    <meta name="description" content="Order your premium customized cake today. Handcrafted in Pakistan.">
+    
+    <!-- Preconnect to Font APIs -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Premium Typography: Cormorant Garamond (Display) & DM Sans (UI/Body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <!-- Lenis for Smooth Scrolling -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"DM Sans"', 'sans-serif'],
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            bg: '#FAF9F6',       // Warm off-white
+                            dark: '#2D2825',     // Deep warm grey for text
+                            light: '#F4EBE8',    // Soft blush/nude
+                            accent: '#8A2E3B',   // Cherry/Burgundy from logo
+                            accentHover: '#6B232D',
+                            border: '#E8E4DF'
+                        }
+                    },
+                    transitionTimingFunction: {
+                        'expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Resets & Global Styles */
+        :root {
+            --cursor-size: 10px;
+        }
+
+        body {
+            background-color: #F8F5F2; 
+            color: #2D2825;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            cursor: none; 
+        }
+
+        ::selection {
+            background-color: #8A2E3B;
+            color: #FAF9F6;
+        }
+
+        /* Lenis Smooth Scroll Recommended Styles */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--cursor-size);
+            height: var(--cursor-size);
+            background-color: #8A2E3B;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                        height 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                        background-color 0.3s ease;
+            mix-blend-mode: difference;
+        }
+        .custom-cursor.active {
+            width: 60px;
+            height: 60px;
+            background-color: #FAF9F6;
+            mix-blend-mode: difference;
+        }
+
+        /* Premium Form Input Styles */
+        .input-field {
+            width: 100%;
+            background-color: #FFFFFF;
+            border: 1px solid #E8E4DF;
+            border-radius: 1rem;
+            padding: 1rem 1.25rem;
+            font-family: 'DM Sans', sans-serif;
+            color: #2D2825;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        .input-field:focus {
+            border-color: #8A2E3B;
+            box-shadow: 0 0 0 4px rgba(138, 46, 59, 0.1);
+        }
+        .input-field::placeholder {
+            color: #A09C99;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #2D2825;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Button Hover Effect */
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #6B232D;
+            transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+            border-radius: inherit;
+        }
+        .btn-primary:hover::before {
+            top: 0;
+        }
+
+        @media (max-width: 768px) {
+            body { cursor: auto; }
+            .custom-cursor { display: none; }
+        }
+        
+        /* Hide scrollbar for number input */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-accent selection:text-white">
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor hidden md:block"></div>
+
+    <!-- Navigation (Same as home) -->
+    <header id="navbar" class="absolute top-0 left-0 w-full z-50 transition-all duration-500 ease-expo py-6">
+        <div class="container mx-auto px-6 md:px-12 flex justify-between items-center">
+            
+            <a href="index.html" class="relative z-10 flex items-center gap-3 interactive" aria-label="Home">
+                <div class="w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden bg-white shadow-sm flex items-center justify-center">
+                    <img src="./images/logo.jpeg" alt="Customized Cake by BakeTales" class="w-full h-full object-cover ">
+                </div>
+                <div class="hidden lg:block">
+                    <h1 class="font-serif font-semibold text-lg leading-tight text-brand-dark">Customized Cake</h1>
+                    <p class="font-sans text-[10px] tracking-[0.2em] text-brand-accent uppercase mt-0.5">By BakeTales</p>
+                </div>
+            </a>
+
+            <nav class="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+                <a href="index.html" class="text-sm font-medium hover:text-brand-accent transition-colors interactive">Home</a>
+                <a href="index.html#featured" class="text-sm font-medium hover:text-brand-accent transition-colors interactive">Menu</a>
+                <a href="index.html#about" class="text-sm font-medium hover:text-brand-accent transition-colors interactive">About</a>
+                <a href="index.html#testimonials" class="text-sm font-medium hover:text-brand-accent transition-colors interactive">Testimonials</a>
+            </nav>
+
+            <div class="flex items-center gap-4 z-10">
+                <button class="lg:hidden text-brand-dark p-2 interactive relative z-50" id="mobile-menu-btn" aria-label="Toggle Menu">
+                    <i id="mobile-menu-icon-open" class="ph ph-list text-3xl transition-all duration-300"></i>
+                    <i id="mobile-menu-icon-close" class="ph ph-x text-3xl transition-all duration-300 hidden"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-brand-bg z-[-1] flex flex-col justify-center items-center opacity-0 pointer-events-none transition-opacity duration-500">
+            <nav class="flex flex-col items-center gap-8 text-2xl font-serif">
+                <a href="index.html" class="mobile-link">Home</a>
+                <a href="index.html#featured" class="mobile-link">Menu</a>
+                <a href="index.html#about" class="mobile-link">About</a>
+                <a href="index.html#testimonials" class="mobile-link">Testimonials</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="min-h-screen pt-40 pb-24">
+        <div class="container mx-auto px-6 md:px-12">
+            
+            <!-- Header Section -->
+            <div class="text-center max-w-2xl mx-auto mb-16 animate-on-load">
+                <div class="w-16 h-16 mx-auto rounded-full bg-brand-light flex items-center justify-center mb-6 text-brand-accent">
+                    <i class="ph-fill ph-cake text-2xl"></i>
+                </div>
+                <p class="text-brand-accent font-semibold tracking-widest uppercase text-xs mb-4">Your Vision, Baked</p>
+                <h1 class="font-serif text-5xl md:text-6xl text-brand-dark leading-tight mb-4">Custom Order <i class="font-light">Request</i></h1>
+                <p class="text-brand-dark/70 text-lg font-sans">Fill out the details below to bring your dream cake to life. We will review your requirements and confirm your booking.</p>
+            </div>
+
+            <!-- Form Layout -->
+            <form id="custom-order-form" class="max-w-6xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+                
+                <!-- Left Column (Inputs) -->
+                <div class="lg:col-span-8 space-y-12 animate-on-load" style="animation-delay: 0.1s;">
+                    
+                    <!-- 1. Personal Details -->
+                    <div class="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-brand-border/50">
+                        <div class="flex items-center gap-3 mb-8 pb-4 border-b border-brand-border">
+                            <span class="w-8 h-8 rounded-full bg-brand-light text-brand-accent flex items-center justify-center font-bold text-sm">1</span>
+                            <h2 class="font-serif text-2xl text-brand-dark">Personal Details</h2>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="form-label">Full Name *</label>
+                                <input type="text" required class="input-field interactive" placeholder="Enter your full name">
+                            </div>
+                            <div>
+                                <label class="form-label">Email Address *</label>
+                                <input type="email" required class="input-field interactive" placeholder="Enter your email">
+                            </div>
+                            <div>
+                                <label class="form-label">Phone Number *</label>
+                                <input type="tel" required class="input-field interactive" placeholder="03XX-XXXXXXX">
+                            </div>
+                            <div>
+                                <label class="form-label">WhatsApp Number *</label>
+                                <input type="tel" required class="input-field interactive" placeholder="03XX-XXXXXXX">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="form-label">City *</label>
+                                <input type="text" required class="input-field interactive" value="Karachi" placeholder="City">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="form-label">Delivery Address *</label>
+                                <textarea required class="input-field interactive resize-none h-28" placeholder="Enter full delivery address"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Cake Details -->
+                    <div class="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-brand-border/50">
+                        <div class="flex items-center gap-3 mb-8 pb-4 border-b border-brand-border">
+                            <span class="w-8 h-8 rounded-full bg-brand-light text-brand-accent flex items-center justify-center font-bold text-sm">2</span>
+                            <h2 class="font-serif text-2xl text-brand-dark">Cake Details</h2>
+                        </div>
+
+                        <!-- Pounds Selection -->
+                        <div class="mb-8">
+                            <label class="form-label mb-4">Select Size (Pounds) *</label>
+                            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                                <!-- 1 lb -->
+                                <label class="cursor-pointer relative interactive group">
+                                    <input type="radio" name="cake_size" value="1500" class="peer sr-only" data-label="1 Pound" required>
+                                    <div class="w-full text-center py-4 rounded-xl border border-brand-border bg-brand-bg peer-checked:bg-brand-light peer-checked:border-brand-accent transition-all group-hover:border-brand-accent/50">
+                                        <span class="block font-serif text-xl font-semibold text-brand-dark">1 lb</span>
+                                        <span class="block text-xs text-brand-dark/60 mt-1">Rs. 1,500</span>
+                                    </div>
+                                    <div class="absolute top-2 right-2 opacity-0 peer-checked:opacity-100 text-brand-accent transition-opacity scale-50 peer-checked:scale-100 duration-300">
+                                        <i class="ph-fill ph-check-circle"></i>
+                                    </div>
+                                </label>
+                                <!-- 1.5 lb -->
+                                <label class="cursor-pointer relative interactive group">
+                                    <input type="radio" name="cake_size" value="2500" class="peer sr-only" data-label="1.5 Pounds">
+                                    <div class="w-full text-center py-4 rounded-xl border border-brand-border bg-brand-bg peer-checked:bg-brand-light peer-checked:border-brand-accent transition-all group-hover:border-brand-accent/50">
+                                        <span class="block font-serif text-xl font-semibold text-brand-dark">1.5 lbs</span>
+                                        <span class="block text-xs text-brand-dark/60 mt-1">Rs. 2,500</span>
+                                    </div>
+                                    <div class="absolute top-2 right-2 opacity-0 peer-checked:opacity-100 text-brand-accent transition-opacity scale-50 peer-checked:scale-100 duration-300">
+                                        <i class="ph-fill ph-check-circle"></i>
+                                    </div>
+                                </label>
+                                <!-- 2 lbs -->
+                                <label class="cursor-pointer relative interactive group">
+                                    <input type="radio" name="cake_size" value="3500" class="peer sr-only" data-label="2 Pounds">
+                                    <div class="w-full text-center py-4 rounded-xl border border-brand-border bg-brand-bg peer-checked:bg-brand-light peer-checked:border-brand-accent transition-all group-hover:border-brand-accent/50">
+                                        <span class="block font-serif text-xl font-semibold text-brand-dark">2 lbs</span>
+                                        <span class="block text-xs text-brand-dark/60 mt-1">Rs. 3,500</span>
+                                    </div>
+                                    <div class="absolute top-2 right-2 opacity-0 peer-checked:opacity-100 text-brand-accent transition-opacity scale-50 peer-checked:scale-100 duration-300">
+                                        <i class="ph-fill ph-check-circle"></i>
+                                    </div>
+                                </label>
+                                <!-- 3 lbs -->
+                                <label class="cursor-pointer relative interactive group">
+                                    <input type="radio" name="cake_size" value="4500" class="peer sr-only" data-label="3 Pounds">
+                                    <div class="w-full text-center py-4 rounded-xl border border-brand-border bg-brand-bg peer-checked:bg-brand-light peer-checked:border-brand-accent transition-all group-hover:border-brand-accent/50">
+                                        <span class="block font-serif text-xl font-semibold text-brand-dark">3 lbs</span>
+                                        <span class="block text-xs text-brand-dark/60 mt-1">Rs. 4,500</span>
+                                    </div>
+                                    <div class="absolute top-2 right-2 opacity-0 peer-checked:opacity-100 text-brand-accent transition-opacity scale-50 peer-checked:scale-100 duration-300">
+                                        <i class="ph-fill ph-check-circle"></i>
+                                    </div>
+                                </label>
+                                <!-- 5 lbs -->
+                                <label class="cursor-pointer relative interactive group">
+                                    <input type="radio" name="cake_size" value="7500" class="peer sr-only" data-label="5 Pounds">
+                                    <div class="w-full text-center py-4 rounded-xl border border-brand-border bg-brand-bg peer-checked:bg-brand-light peer-checked:border-brand-accent transition-all group-hover:border-brand-accent/50">
+                                        <span class="block font-serif text-xl font-semibold text-brand-dark">5 lbs</span>
+                                        <span class="block text-xs text-brand-dark/60 mt-1">Rs. 7,500</span>
+                                    </div>
+                                    <div class="absolute top-2 right-2 opacity-0 peer-checked:opacity-100 text-brand-accent transition-opacity scale-50 peer-checked:scale-100 duration-300">
+                                        <i class="ph-fill ph-check-circle"></i>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="mb-8">
+                            <label class="form-label">Design Requirements & Flavor Preferences *</label>
+                            <textarea required class="input-field interactive resize-none h-32" placeholder="Tell us about your theme, colors, flavor choice, and any specific messages to write on the cake..."></textarea>
+                        </div>
+
+                        <div>
+                            <label class="form-label mb-3">Reference Image (Optional)</label>
+                            <label class="block w-full border-2 border-dashed border-brand-border rounded-2xl p-8 text-center hover:bg-brand-bg transition-colors cursor-pointer group interactive">
+                                <input type="file" class="hidden file-input" accept="image/*">
+                                <div class="w-12 h-12 mx-auto rounded-full bg-white shadow-sm flex items-center justify-center text-brand-dark mb-3 group-hover:-translate-y-1 transition-transform">
+                                    <i class="ph ph-image text-xl"></i>
+                                </div>
+                                <p class="font-medium text-brand-dark mb-1 file-name">Click to upload inspiration image</p>
+                                <p class="text-xs text-brand-dark/50">JPEG, PNG up to 5MB</p>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 3. Payment -->
+                    <div class="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-brand-border/50">
+                        <div class="flex items-center gap-3 mb-8 pb-4 border-b border-brand-border">
+                            <span class="w-8 h-8 rounded-full bg-brand-light text-brand-accent flex items-center justify-center font-bold text-sm">3</span>
+                            <h2 class="font-serif text-2xl text-brand-dark">Advance Payment</h2>
+                        </div>
+
+                        <div class="bg-brand-bg rounded-xl p-6 mb-8 border border-brand-border">
+                            <h3 class="font-serif text-lg font-semibold mb-2"><i class="ph-fill ph-bank text-brand-accent mr-1"></i> Bank Transfer Details</h3>
+                            <p class="text-sm text-brand-dark/70 mb-4">Please transfer the required advance amount to confirm your order.</p>
+                            <div class="grid grid-cols-2 gap-4 text-sm font-medium">
+                                <div>
+                                    <span class="block text-brand-dark/50 text-xs uppercase tracking-wider mb-1">Bank Name</span>
+                                    Standard Chartered
+                                </div>
+                                <div>
+                                    <span class="block text-brand-dark/50 text-xs uppercase tracking-wider mb-1">Account Title</span>
+                                    BakeTales
+                                </div>
+                                <div class="col-span-2">
+                                    <span class="block text-brand-dark/50 text-xs uppercase tracking-wider mb-1">Account Number / IBAN</span>
+                                    <span class="font-mono text-base">PK34 SCBL 0000 0000 0000 00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="form-label mb-3">Advance Payment Receipt *</label>
+                            <label class="block w-full border-2 border-dashed border-brand-border rounded-2xl p-8 text-center hover:bg-brand-light/30 transition-colors cursor-pointer group interactive">
+                                <input type="file" required class="hidden file-input" accept="image/*">
+                                <div class="w-12 h-12 mx-auto rounded-full bg-brand-light flex items-center justify-center text-brand-accent mb-3 group-hover:-translate-y-1 transition-transform">
+                                    <i class="ph ph-receipt text-xl"></i>
+                                </div>
+                                <p class="font-medium text-brand-dark mb-1 file-name">Upload Payment Screenshot <span class="text-brand-accent">*</span></p>
+                                <p class="text-xs text-brand-dark/50">Required to process your order</p>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column (Sticky Summary) -->
+                <div class="lg:col-span-4 lg:sticky lg:top-32 animate-on-load" style="animation-delay: 0.3s;">
+                    <div class="bg-brand-dark text-white rounded-[2rem] p-8 shadow-2xl relative overflow-hidden">
+                        
+                        <!-- Decor -->
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+
+                        <h3 class="font-serif text-2xl mb-6 text-[#E8A598]">Order Summary</h3>
+                        
+                        <div class="space-y-4 mb-8 text-sm border-b border-white/10 pb-8">
+                            <div class="flex justify-between items-center">
+                                <span class="text-white/60">Selected Size</span>
+                                <span id="summary-size" class="font-medium">Not selected</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-white/60">Base Price</span>
+                                <span id="summary-price" class="font-medium">Rs. 0</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-white/60">Delivery</span>
+                                <span class="font-medium">Calculated later</span>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center mb-8">
+                            <span class="font-serif text-xl">Estimated Total</span>
+                            <span id="summary-total" class="font-serif text-3xl font-semibold text-[#E8A598]">Rs. 0</span>
+                        </div>
+
+                        <div class="bg-white/10 rounded-xl p-4 mb-8">
+                            <p class="text-xs text-white/70 leading-relaxed">
+                                <i class="ph-fill ph-info text-[#E8A598] mr-1"></i>
+                                Final price may vary based on design complexity, floral additions, and delivery location. We will confirm the exact total via WhatsApp.
+                            </p>
+                        </div>
+
+                        <button type="submit" class="w-full inline-flex items-center justify-center px-8 py-4 rounded-full bg-white text-brand-dark font-semibold transition-all hover:scale-[1.02] interactive magnetic-btn group">
+                            Submit Order Request
+                            <i class="ph ph-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+
+                    <!-- Rate List Reference -->
+                    <div class="mt-8 bg-white p-6 rounded-2xl border border-brand-border/50 text-sm">
+                        <h4 class="font-serif text-lg font-semibold text-brand-dark mb-4 flex items-center gap-2">
+                            <i class="ph-fill ph-tag text-brand-accent"></i> Base Rate List
+                        </h4>
+                        <ul class="space-y-3 text-brand-dark/70">
+                            <li class="flex justify-between border-b border-brand-border/50 pb-2"><span>1 Pound</span> <span>Rs. 1,500</span></li>
+                            <li class="flex justify-between border-b border-brand-border/50 pb-2"><span>1.5 Pounds</span> <span>Rs. 2,500</span></li>
+                            <li class="flex justify-between border-b border-brand-border/50 pb-2"><span>2 Pounds</span> <span>Rs. 3,500</span></li>
+                            <li class="flex justify-between border-b border-brand-border/50 pb-2"><span>3 Pounds</span> <span>Rs. 4,500</span></li>
+                            <li class="flex justify-between"><span>5 Pounds</span> <span>Rs. 7,500</span></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white pt-20 pb-10">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 border-b border-white/10 pb-16">
+                
+                <div class="md:col-span-2">
+                    <div class="inline-flex items-center justify-center bg-white rounded-full overflow-hidden w-20 h-20 mb-6">
+                        <img src="./images/logo.jpeg" alt="Logo" class="w-full h-full object-cover">
+                    </div>
+                    <p class="text-white/60 max-w-sm">Premium handcrafted custom cakes serving Pakistan. Elevating celebrations with edible art.</p>
+                </div>
+
+                <div>
+                    <h4 class="font-serif text-xl mb-6 text-[#E8A598]">Quick Links</h4>
+                    <ul class="space-y-4 text-white/60">
+                        <li><a href="index.html" class="hover:text-white transition-colors interactive">Home</a></li>
+                        <li><a href="index.html#featured" class="hover:text-white transition-colors interactive">Menu</a></li>
+                        <li><a href="index.html#about" class="hover:text-white transition-colors interactive">Our Story</a></li>
+                        <li><a href="index.html#contact" class="hover:text-white transition-colors interactive">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-serif text-xl mb-6 text-[#E8A598]">Contact</h4>
+                    <ul class="space-y-4 text-white/60">
+                        <li class="flex items-center gap-2"><i class="ph ph-map-pin"></i> Pakistan</li>
+                        <li class="flex items-center gap-2"><i class="ph ph-envelope-simple"></i> hello@customcake.com</li>
+                    </ul>
+                    <div class="flex gap-4 mt-6">
+                        <a href="https://www.instagram.com/s.ateebjilani/" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-accent hover:border-brand-accent transition-colors interactive">
+                            <i class="ph-fill ph-instagram-logo"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-accent hover:border-brand-accent transition-colors interactive">
+                            <i class="ph-fill ph-facebook-logo"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm text-white/40">
+                <p>&copy; 2026 Customized Cake by BakeTales. All rights reserved.</p>
+                <p class="mt-2 md:mt-0">Designed with precision.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. Lenis Smooth Scrolling ---
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+            })
+            function raf(time) {
+                lenis.raf(time)
+                requestAnimationFrame(raf)
+            }
+            requestAnimationFrame(raf)
+
+            // --- 2. Custom Cursor ---
+            const cursor = document.querySelector('.custom-cursor');
+            const interactables = document.querySelectorAll('.interactive, button, a, input, textarea, label');
+
+            if(window.innerWidth > 768) {
+                window.addEventListener('mousemove', (e) => {
+                    gsap.to(cursor, {
+                        x: e.clientX,
+                        y: e.clientY,
+                        duration: 0.1,
+                        ease: 'power2.out'
+                    });
+                });
+
+                interactables.forEach(el => {
+                    el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+                    el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+                });
+            }
+
+            // --- 3. Magnetic Button Logic ---
+            const magneticBtns = document.querySelectorAll('.magnetic-btn');
+            magneticBtns.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    gsap.to(btn, { x: x * 0.2, y: y * 0.2, duration: 0.5, ease: 'power2.out' });
+                });
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.3)' });
+                });
+            });
+
+            // --- 4. Mobile Menu Toggle ---
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileIconOpen = document.getElementById('mobile-menu-icon-open');
+            const mobileIconClose = document.getElementById('mobile-menu-icon-close');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            let menuOpen = false;
+
+            mobileBtn.addEventListener('click', () => {
+                menuOpen = !menuOpen;
+                if(menuOpen) {
+                    mobileIconOpen.classList.add('hidden');
+                    mobileIconClose.classList.remove('hidden');
+                    mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+                    mobileMenu.classList.add('opacity-100', 'pointer-events-auto', 'z-40');
+                    document.body.style.overflow = 'hidden'; 
+                    lenis.stop(); 
+                    gsap.fromTo(mobileLinks, 
+                        { y: 20, opacity: 0 },
+                        { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power2.out', delay: 0.2 }
+                    );
+                } else {
+                    mobileIconClose.classList.add('hidden');
+                    mobileIconOpen.classList.remove('hidden');
+                    mobileMenu.classList.remove('opacity-100', 'pointer-events-auto', 'z-40');
+                    mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                    document.body.style.overflow = '';
+                    lenis.start(); 
+                }
+            });
+
+            // --- 5. Form Logic: Dynamic Pricing & File Uploads ---
+            const sizeRadios = document.querySelectorAll('input[name="cake_size"]');
+            const displaySize = document.getElementById('summary-size');
+            const displayPrice = document.getElementById('summary-price');
+            const displayTotal = document.getElementById('summary-total');
+
+            sizeRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const price = parseInt(e.target.value);
+                    const label = e.target.getAttribute('data-label');
+                    
+                    displaySize.textContent = label;
+                    displayPrice.textContent = 'Rs. ' + price.toLocaleString();
+                    
+                    // Animate the total number change
+                    gsap.fromTo(displayTotal, 
+                        { opacity: 0, y: 10 }, 
+                        { opacity: 1, y: 0, duration: 0.4, ease: 'back.out(1.5)', 
+                          onStart: () => { displayTotal.textContent = 'Rs. ' + price.toLocaleString(); }
+                        }
+                    );
+                });
+            });
+
+            // File upload names
+            const fileInputs = document.querySelectorAll('.file-input');
+            fileInputs.forEach(input => {
+                input.addEventListener('change', (e) => {
+                    const fileNameElem = e.target.parentElement.querySelector('.file-name');
+                    const originalText = fileNameElem.getAttribute('data-original') || fileNameElem.innerHTML;
+                    if(!fileNameElem.getAttribute('data-original')) {
+                        fileNameElem.setAttribute('data-original', originalText);
+                    }
+                    
+                    if (e.target.files.length > 0) {
+                        fileNameElem.innerHTML = e.target.files[0].name + ' <i class="ph-fill ph-check-circle text-green-500 ml-1"></i>';
+                        e.target.parentElement.classList.add('border-brand-accent', 'bg-brand-light/30');
+                    } else {
+                        fileNameElem.innerHTML = originalText;
+                        e.target.parentElement.classList.remove('border-brand-accent', 'bg-brand-light/30');
+                    }
+                });
+            });
+
+            // --- 6. Form Submission Prevention (for demo) ---
+            document.getElementById('custom-order-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert("This is a demo. Order request functionality would trigger here.");
+            });
+
+            // --- 7. Entrance Animations ---
+            gsap.from('.animate-on-load', {
+                y: 40,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: 'power3.out',
+                delay: 0.2
+            });
+        });
+    </script>
+</body>
+</html>

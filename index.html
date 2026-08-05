@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customized Cake by Shahreen Saad | Premium Artisan Cakes</title>
-    <meta name="description" content="Sweeten Up Your Celebrations With Our Custom Cakes. Handcrafted premium cakes by Shahreen Saad in Pakistan.">
+    <title>Customized Cake by BakeTales | Premium Artisan Cakes</title>
+    <meta name="description" content="Sweeten Up Your Celebrations With Our Custom Cakes. Handcrafted premium cakes by BakeTales in Pakistan.">
     
     <!-- Preconnect to Font APIs -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -220,11 +220,11 @@
             <!-- Logo -->
             <a href="#" class="relative z-10 flex items-center gap-3 interactive" aria-label="Home">
                 <div class="w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden bg-white shadow-sm flex items-center justify-center">
-                    <img src="./images/logo.jpg" alt="Customized Cake by Shahreen Saad" class="w-full h-full object-contain p-1">
+                    <img src="./images/logo.jpeg" alt="Customized Cake by BakeTales" class="w-full h-full object-cover">
                 </div>
                 <div class="hidden lg:block">
                     <h1 class="font-serif font-semibold text-lg leading-tight text-brand-dark">Customized Cake</h1>
-                    <p class="font-sans text-[10px] tracking-[0.2em] text-brand-accent uppercase mt-0.5">By Shahreen Saad</p>
+                    <p class="font-sans text-[10px] tracking-[0.2em] text-brand-accent uppercase mt-0.5">By BakeTales</p>
                 </div>
             </a>
 
@@ -232,18 +232,7 @@
             <nav class="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
                 <a href="#" class="text-sm font-medium hover:text-brand-accent transition-colors interactive">Home</a>
                 
-                <!-- Dropdown -->
-                <div class="relative group cursor-pointer h-full py-4 interactive">
-                    <span class="text-sm font-medium group-hover:text-brand-accent transition-colors flex items-center gap-1">
-                        Categories <i class="ph ph-caret-down text-xs transition-transform group-hover:rotate-180"></i>
-                    </span>
-                    <div class="absolute top-full left-1/2 -translate-x-1/2 w-48 bg-white shadow-xl rounded-2xl border border-brand-border py-3 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 ease-expo">
-                        <a href="#" class="block px-5 py-2 text-sm text-brand-dark hover:bg-brand-light hover:text-brand-accent transition-colors">Birthday Cakes</a>
-                        <a href="#" class="block px-5 py-2 text-sm text-brand-dark hover:bg-brand-light hover:text-brand-accent transition-colors">Wedding Cakes</a>
-                        <a href="#" class="block px-5 py-2 text-sm text-brand-dark hover:bg-brand-light hover:text-brand-accent transition-colors">Anniversary Cakes</a>
-                        <a href="#" class="block px-5 py-2 text-sm text-brand-dark hover:bg-brand-light hover:text-brand-accent transition-colors">Bento & Cupcakes</a>
-                    </div>
-                </div>
+                   <a href="./custom_order.html" class="text-sm font-medium hover:text-brand-accent transition-colors interactive">Custom</a>
 
                 <a href="#featured" class="text-sm font-medium hover:text-brand-accent transition-colors interactive">Featured</a>
                 <a href="#about" class="text-sm font-medium hover:text-brand-accent transition-colors interactive">About</a>
@@ -266,7 +255,7 @@
         <div id="mobile-menu" class="fixed inset-0 bg-brand-bg z-[-1] flex flex-col justify-center items-center opacity-0 pointer-events-none transition-opacity duration-500">
             <nav class="flex flex-col items-center gap-8 text-2xl font-serif">
                 <a href="#" class="mobile-link">Home</a>
-                <a href="#" class="mobile-link">Categories</a>
+                <a href="./custom_order.html" class="mobile-link">Custom</a>
                 <a href="#featured" class="mobile-link">Featured</a>
                 <a href="#about" class="mobile-link">About</a>
                 <a href="#contact" class="text-brand-accent mobile-link">Order Now</a>
@@ -296,7 +285,7 @@
                     </h1>
                     
                     <p class="text-lg md:text-xl text-brand-dark/70 font-sans max-w-md text-balance mb-10 hero-desc gsap-hidden">
-                        Bespoke, luxury cakes designed to make your special moments unforgettable. Baked with love by Shahreen Saad.
+                        Bespoke, luxury cakes designed to make your special moments unforgettable. Baked with love by BakeTales.
                     </p>
                     
                     <div class="flex flex-wrap items-center gap-4 hero-btns gsap-hidden">
@@ -358,11 +347,21 @@
         <section id="featured" class="py-24 md:py-32 bg-brand-bg relative">
             <div class="container mx-auto px-6 md:px-12">
                 
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6">
                     <div class="max-w-2xl">
-                        <p class="text-brand-accent font-semibold tracking-widest uppercase text-xs mb-3 section-subtitle">Curated Selection</p>
-                        <h2 class="font-serif text-4xl md:text-6xl text-brand-dark section-title">Signature <i class="font-light">Creations</i></h2>
+                        <p class="text-brand-accent font-semibold tracking-widest uppercase text-xs mb-3 section-subtitle">
+                            Curated Selection
+                        </p>
+                        <h2 class="font-serif text-4xl md:text-6xl text-brand-dark section-title">
+                            Signature <i class="font-light">Creations</i>
+                        </h2>
                     </div>
+
+                    <a href="custom_order.html"
+                       class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-brand-dark text-white text-sm font-medium transition-all hover:scale-105 interactive btn-primary magnetic-btn group self-start md:self-auto">
+                        <i class="ph ph-magic-wand mr-2 text-lg"></i>
+                        Build Your Custom Cake
+                    </a>
                 </div>
 
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 lg:gap-10">
@@ -548,7 +547,7 @@
                             src="./images/reel.mp4" 
                             class="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700"
                             autoplay loop muted playsinline
-                            poster="./images/logo.jpg">
+                            poster="./images/logo.jpeg">
                         </video>
                         
                         <!-- Cute Glassmorphism Overlay Elements -->
@@ -572,7 +571,7 @@
                         
                         <div class="space-y-6 text-brand-dark/70 font-sans text-lg">
                             <p>
-                                What started as a passion in a home kitchen has blossomed into a boutique cake studio dedicated to edible artistry. Shahreen Saad believes that a cake is more than just dessert—it's the centerpiece of your celebration.
+                                What started as a passion in a home kitchen has blossomed into a boutique cake studio dedicated to edible artistry. We believes that a cake is more than just dessert—it's the centerpiece of your celebration.
                             </p>
                             <p>
                                 Every creation is meticulously handcrafted, blending premium, locally-sourced ingredients with contemporary design techniques to ensure your cake tastes as breathtaking as it looks.
@@ -580,8 +579,8 @@
                         </div>
 
                         <div class="mt-12 flex items-center gap-6">
-                            <img src="logo.jpg" alt="Logo" class="w-16 h-16 object-contain grayscale opacity-50 mix-blend-multiply">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Signature_of_John_Hancock.svg/1200px-Signature_of_John_Hancock.svg.png" alt="Signature" class="h-12 opacity-30 filter invert" style="filter: brightness(0); opacity: 0.3;"> <!-- Placeholder signature -->
+                            <img src="./images/logo.jpeg" alt="Logo" class="w-16 h-16 object-contain grayscale opacity-50 mix-blend-multiply">
+                            <img src="./images/signature.png" alt="Signature" class="h-12 opacity-30 filter invert" style="filter: brightness(0); opacity: 0.3;"> <!-- Placeholder signature -->
                         </div>
                     </div>
                 </div>
@@ -695,7 +694,7 @@
         <!-- Instagram Section -->
         <section class="pt-20 pb-8 bg-brand-bg overflow-hidden">
             <div class="text-center mb-10">
-                <a href="https://www.instagram.com/customized.cake/" target="_blank" class="inline-flex items-center gap-2 font-serif text-2xl hover:text-brand-accent transition-colors interactive">
+                <a href="https://www.instagram.com/s.ateebjilani/" target="_blank" class="inline-flex items-center gap-2 font-serif text-2xl hover:text-brand-accent transition-colors interactive">
                     @customized.cake <i class="ph ph-arrow-up-right"></i>
                 </a>
             </div>
@@ -706,35 +705,35 @@
                     .hide-scrollbars::-webkit-scrollbar { display: none; }
                 </style>
                 <!-- Insta Item 1 -->
-                <a href="https://www.instagram.com/customized.cake/" class="relative min-w-[250px] md:min-w-[300px] aspect-square rounded-2xl overflow-hidden group snap-center interactive insta-item">
+                <a href="https://www.instagram.com/s.ateebjilani/" class="relative min-w-[250px] md:min-w-[300px] aspect-square rounded-2xl overflow-hidden group snap-center interactive insta-item">
                     <img src="./images/ig1.webp" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Instagram Post">
                     <div class="absolute inset-0 bg-brand-accent/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                         <i class="ph-fill ph-instagram-logo text-white text-4xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300"></i>
                     </div>
                 </a>
                 <!-- Insta Item 2 -->
-                <a href="https://www.instagram.com/customized.cake/" class="relative min-w-[250px] md:min-w-[300px] aspect-square rounded-2xl overflow-hidden group snap-center interactive insta-item">
+                <a href="https://www.instagram.com/s.ateebjilani/" class="relative min-w-[250px] md:min-w-[300px] aspect-square rounded-2xl overflow-hidden group snap-center interactive insta-item">
                     <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Instagram Post">
                     <div class="absolute inset-0 bg-brand-accent/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                         <i class="ph-fill ph-instagram-logo text-white text-4xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300"></i>
                     </div>
                 </a>
                  <!-- Insta Item 3 -->
-                 <a href="https://www.instagram.com/customized.cake/" class="relative min-w-[250px] md:min-w-[300px] aspect-square rounded-2xl overflow-hidden group snap-center interactive insta-item">
+                 <a href="https://www.instagram.com/s.ateebjilani/" class="relative min-w-[250px] md:min-w-[300px] aspect-square rounded-2xl overflow-hidden group snap-center interactive insta-item">
                     <img src="./images/cake10.jpeg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Instagram Post">
                     <div class="absolute inset-0 bg-brand-accent/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                         <i class="ph-fill ph-instagram-logo text-white text-4xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300"></i>
                     </div>
                 </a>
                 <!-- Insta Item 4 -->
-                <a href="https://www.instagram.com/customized.cake/" class="relative min-w-[250px] md:min-w-[300px] aspect-square rounded-2xl overflow-hidden group snap-center interactive insta-item">
+                <a href="https://www.instagram.com/s.ateebjilani/" class="relative min-w-[250px] md:min-w-[300px] aspect-square rounded-2xl overflow-hidden group snap-center interactive insta-item">
                     <img src="./images/hero.webp" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Instagram Post">
                     <div class="absolute inset-0 bg-brand-accent/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                         <i class="ph-fill ph-instagram-logo text-white text-4xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300"></i>
                     </div>
                 </a>
                 <!-- Insta Item 5 -->
-                <a href="https://www.instagram.com/customized.cake/" class="relative min-w-[250px] md:min-w-[300px] aspect-square rounded-2xl overflow-hidden group snap-center interactive insta-item hidden md:block">
+                <a href="https://www.instagram.com/s.ateebjilani/" class="relative min-w-[250px] md:min-w-[300px] aspect-square rounded-2xl overflow-hidden group snap-center interactive insta-item hidden md:block">
                     <img src="./images/cake6.jpeg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Instagram Post">
                     <div class="absolute inset-0 bg-brand-accent/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                         <i class="ph-fill ph-instagram-logo text-white text-4xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300"></i>
@@ -749,7 +748,7 @@
             
             <div class="container mx-auto px-6 md:px-12 relative z-10 text-center">
                 <div class="w-20 h-20 mx-auto rounded-full bg-brand-light flex items-center justify-center mb-8 cta-element">
-                    <img src="./images/logo.jpg" alt="Logo" class="w-12 h-12 object-contain mix-blend-multiply">
+                    <img src="./images/logo.jpeg" alt="Logo" class="w-12 h-12 object-contain mix-blend-multiply">
                 </div>
                 
                 <h2 class="font-serif text-5xl md:text-7xl text-brand-dark mb-6 cta-element clip-text">
@@ -762,7 +761,7 @@
                 </p>
                 
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4 cta-element">
-                    <a href="https://www.instagram.com/customized.cake/" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center px-10 py-5 rounded-full bg-brand-dark text-white font-medium text-lg transition-all hover:scale-105 interactive btn-primary z-10 magnetic-btn">
+                    <a href="https://www.instagram.com/s.ateebjilani/" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center px-10 py-5 rounded-full bg-brand-dark text-white font-medium text-lg transition-all hover:scale-105 interactive btn-primary z-10 magnetic-btn">
                         <i class="ph ph-instagram-logo logo mr-2 text-xl"></i> Follow Us
                     </a>
                     <a href="mailto:order@example.com" class="w-full sm:w-auto inline-flex items-center justify-center px-10 py-5 rounded-full border border-brand-border bg-white text-brand-dark font-medium text-lg transition-all hover:border-brand-dark interactive z-10">
@@ -780,7 +779,7 @@
                 
                 <div class="md:col-span-2">
                     <a href="#" class="inline-flex items-center justify-center bg-white rounded-full overflow-hidden w-20 h-20 mb-6">
-                        <img src="./images/logo.jpg" alt="Logo" class="w-full h-full object-cover">
+                        <img src="./images/logo.jpeg" alt="Logo" class="w-full h-full object-cover">
                     </a>
                     <p class="text-white/60 max-w-sm">Premium handcrafted custom cakes serving Pakistan. Elevating celebrations with edible art.</p>
                 </div>
@@ -802,7 +801,7 @@
                         <li class="flex items-center gap-2"><i class="ph ph-envelope-simple"></i> hello@customcake.com</li>
                     </ul>
                     <div class="flex gap-4 mt-6">
-                        <a href="https://www.instagram.com/customized.cake/" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-accent hover:border-brand-accent transition-colors interactive">
+                        <a href="https://www.instagram.com/s.ateebjilani/" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-accent hover:border-brand-accent transition-colors interactive">
                             <i class="ph-fill ph-instagram-logo"></i>
                         </a>
                         <a href="#" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-accent hover:border-brand-accent transition-colors interactive">
@@ -814,7 +813,7 @@
             </div>
 
             <div class="flex flex-col md:flex-row justify-between items-center text-sm text-white/40">
-                <p>&copy; 2026 Customized Cake by Shahreen Saad. All rights reserved.</p>
+                <p>&copy; 2026 Customized Cake by BakeTales. All rights reserved.</p>
                 <p class="mt-2 md:mt-0">Designed and Developed By Ateeb Jilani.</p>
             </div>
         </div>
